@@ -1,6 +1,7 @@
 const path = require('path');
-const app = require('express').express();
+const express = require('express');
 const sassMiddleware = require('node-sass-middleware');
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 const PUBLIC_DIR = path.join(__dirname, 'public')
