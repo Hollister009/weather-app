@@ -1,11 +1,21 @@
-const cool = require('cool-ascii-faces')
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const path = require('path');
+const app = require('express').express();
+const sassMiddleware = require('node-sass-middleware');
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
+const PORT = process.env.PORT || 5000;
+const PUBLIC_DIR = path.join(__dirname, 'public')
+
+app
+  .set('view engine', 'pug')
   .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .use(express.static(PUBLIC_DIR))
+  .use(sassMiddleware({
+    src: PUBLIC_DIR + 'styles/scss',
+    dest: PUBLIC_DIR + 'styles/css',
+    indentedSyntax: false,
+  }))
+  .get('*', (req, res) => {
+    res.render('index');
+  });
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
