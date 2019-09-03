@@ -12,14 +12,14 @@ const types = {
  * @class View
  */
 class View {
-  _element = null;
+  static _element = null;
 
   get element() {
-    return this._element;
+    return View._element;
   }
 
   set element(el) {
-    this._element = el;
+    View._element = el;
   }
 }
 

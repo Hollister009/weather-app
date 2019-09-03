@@ -25,9 +25,10 @@ app
       sourceMap: false,
     })
   )
-  .use('/api', router)
-  .get('*', (req, res) => {
-    res.sendFile('index.html', PUBLIC_DIR);
-  });
+  .use('/api', router);
+
+app.get('*', (req, res) => {
+  res.sendFile('public/index.html', {root: __dirname});
+});
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
