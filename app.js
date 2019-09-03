@@ -27,7 +27,7 @@ app
   )
   .use('/api', router)
   .get('*', (req, res) => {
-    res.sendFile('index.html');
+    res.sendFile('index.html', PUBLIC_DIR);
   });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
