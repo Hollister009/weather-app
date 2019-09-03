@@ -19,10 +19,11 @@ app
   .use(express.static(PUBLIC_DIR))
   .use(
     sassMiddleware({
-      src: PUBLIC_DIR + 'styles/scss',
-      dest: PUBLIC_DIR + 'styles/css',
+      src: PUBLIC_DIR,
+      dest: PUBLIC_DIR,
       indentedSyntax: false,
-    }),
+      sourceMap: false,
+    })
   )
   .use('/api', router)
   .get('*', (req, res) => {

@@ -1,0 +1,24 @@
+$color-white: #fff;
+$color-aqua: rgb(28, 210, 242);
+$color-purple: rgb(68, 0, 204);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-purple;
+  background-image: linear-gradient($color-aqua, $color-purple);
+  color: $color-white;
+}
+

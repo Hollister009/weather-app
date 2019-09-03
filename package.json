@@ -20,7 +20,7 @@
     "dotenv": "^8.1.0",
     "nodemon": "^1.19.1"
   },
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/Hollister009/weather-app"
   },
