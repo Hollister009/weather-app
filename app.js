@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 const router = express.Router();
@@ -17,14 +16,6 @@ app
   .set('view engine', 'pug')
   .set('views', path.join(__dirname, 'views'))
   .use(express.static(PUBLIC_DIR))
-  .use(
-    sassMiddleware({
-      src: PUBLIC_DIR,
-      dest: PUBLIC_DIR,
-      indentedSyntax: false,
-      sourceMap: false,
-    })
-  )
   .use('/api', router);
 
 app.get('*', (req, res) => {
