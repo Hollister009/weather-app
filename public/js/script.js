@@ -36,12 +36,15 @@ class Form extends View {
 
   renderForm() {
     this.form = App.createElement('form', 'form');
+    this.form.setAttribute('method', 'get');
+    this.form.setAttribute('action', '/api/location');
+    this.form.dataset.js = 'view-form';
 
     this.form.innerHTML = `
       <label>
-        <p>${this.message}</p>
-        <input type="text" name="location" id="location">
-        <input type="submit" value="Submit">
+        <p class="subtitle">${this.message}</p>
+        <input class="form-control" type="text" name="location" id="location">
+        <input class="btn btn-primary" type="submit" value="Submit">
       </label>
     `;
   }
@@ -82,11 +85,12 @@ class App {
     this.title = 'Weather App v1.0';
     this.author = 'Andrew Zhukevych';
     this.hero = `
-      <h1 class="title">${this.title}</h1>
+      <h1 class="title white">${this.title}</h1>
       <p class="author">by ${this.author}</p>
     `;
 
     this.createMarkup();
+    // this.setupEvents();
   }
 
   static init() {
@@ -136,6 +140,18 @@ class App {
 
     container.append(...[heroSection, mainSection]);
     this.root.appendChild(container);
+  }
+
+  setupEvents() {
+    const target = document.querySelector('[data-js=' + this.type + ']');
+
+    switch (this.type) {
+      case types.FORM:
+        target.addEventListener('submit', function(e) {
+          e.preventDefault();
+          console.log('Hello from form!');
+        });
+    }
   }
 }
 

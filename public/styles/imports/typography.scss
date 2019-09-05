@@ -1,0 +1,32 @@
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+.title {
+  color: $color-dark1;
+  font-size: 3.2rem;
+  line-height: 1.125;
+
+  &.white {
+    color: $color-white;
+  }
+}
+
+.subtitle {
+  color: $color-dark2;
+  font-size: 2.2rem;
+  line-height: 2;
+}
+
+.author {
+  font-style: italic;
+  font-size: 1.6rem;
+  padding-left: 1em;
+  padding-top: 1em;
+  opacity: 0.75;
+}
