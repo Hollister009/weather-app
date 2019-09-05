@@ -12,14 +12,28 @@ const types = {
  * @class View
  */
 class View {
-  static _element = null;
-
   get element() {
-    return View._element;
+    return this._element;
   }
 
   set element(el) {
-    View._element = el;
+    this._element = el;
+  }
+
+  registerEvent(event, cb) {
+    console.log('View.registerEvent(', event, '...)');
+    this.element.addEventListener(event, cb);
+  }
+
+  unregisterEvent(event, cb) {
+    this.element.removeEventListener(event, cb);
+  }
+
+  registerEventOnce(event, cb) {
+    this.element.addEventListener(event, function(evt) {
+      cb(evt);
+      this.unregisterEvent(event, cb);
+    });
   }
 }
 
@@ -31,7 +45,7 @@ class Form extends View {
     super();
     this.message = 'Enter your location:';
     this.renderForm();
-    this.element = this.form.outerHTML;
+    this.element = this.form;
   }
 
   renderForm() {
@@ -78,10 +92,10 @@ class Info extends View {
 }
 
 class App {
-  constructor(type) {
+  constructor(type, rootId = 'root') {
     this.type = type;
     this.view = this.getCurrentView();
-    this.root = document.getElementById('root');
+    this.root = document.getElementById(rootId);
     this.title = 'Weather App v1.0';
     this.author = 'Andrew Zhukevych';
     this.hero = `
@@ -90,6 +104,12 @@ class App {
     `;
 
     this.createMarkup();
+    this.view.registerEvent('submit', evt => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      console.log(evt.target);
+      return false;
+    });
     // this.setupEvents();
   }
 
@@ -110,7 +130,11 @@ class App {
 
   static buildSection(name, content) {
     const section = App.createElement('section', name);
-    section.innerHTML = content;
+    if (typeof content === 'string') {
+      section.insertAdjacentHTML('beforeend', content);
+    } else {
+      section.appendChild(content);
+    }
     return section;
   }
 
@@ -133,26 +157,27 @@ class App {
   }
 
   createMarkup() {
+    const { element } = this.view;
     const container = App.createElement('div', 'container');
     const heroSection = App.buildSection('hero', this.hero);
-    const mainSection = App.buildSection('main', this.view.element);
+    const mainSection = App.buildSection('main', element);
     mainSection.classList.add('col-4');
 
     container.append(...[heroSection, mainSection]);
     this.root.appendChild(container);
   }
 
-  setupEvents() {
-    const target = document.querySelector('[data-js=' + this.type + ']');
+  // setupEvents() {
+  //   const target = document.querySelector('[data-js=' + this.type + ']');
 
-    switch (this.type) {
-      case types.FORM:
-        target.addEventListener('submit', function(e) {
-          e.preventDefault();
-          console.log('Hello from form!');
-        });
-    }
-  }
+  //   switch (this.type) {
+  //     case types.FORM:
+  //       target.addEventListener('submit', function(e) {
+  //         e.preventDefault();
+  //         console.log('Hello from form!');
+  //       });
+  //   }
+  // }
 }
 
 // Event: DOMContentLoaded
