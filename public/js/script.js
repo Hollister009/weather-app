@@ -44,23 +44,23 @@ class Form extends View {
   constructor() {
     super();
     this.message = 'Enter your location:';
-    this.renderForm();
-    this.element = this.form;
+    this.element = Form.renderForm(this.message);
   }
 
-  renderForm() {
-    this.form = App.createElement('form', 'form');
-    this.form.setAttribute('method', 'get');
-    this.form.setAttribute('action', '/api/location');
-    this.form.dataset.js = 'view-form';
+  static renderForm(message) {
+    const form = App.createElement('form', 'form');
+    form.setAttribute('method', 'get');
+    form.setAttribute('action', '/api/location');
+    form.dataset.js = 'view-form';
 
-    this.form.innerHTML = `
+    form.innerHTML = `
       <label>
-        <p class="subtitle">${this.message}</p>
+        <p class="subtitle">${message}</p>
         <input class="form-control" type="text" name="location" id="location">
         <input class="btn btn-primary" type="submit" value="Submit">
       </label>
     `;
+    return form;
   }
 }
 
@@ -103,14 +103,13 @@ class App {
       <p class="author">by ${this.author}</p>
     `;
 
-    this.createMarkup();
+    this.renderView();
     this.view.registerEvent('submit', evt => {
       evt.preventDefault();
       evt.stopPropagation();
       console.log(evt.target);
       return false;
     });
-    // this.setupEvents();
   }
 
   static init() {
@@ -156,7 +155,7 @@ class App {
     }
   }
 
-  createMarkup() {
+  renderView() {
     const { element } = this.view;
     const container = App.createElement('div', 'container');
     const heroSection = App.buildSection('hero', this.hero);
