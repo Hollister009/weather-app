@@ -1,9 +1,9 @@
 // @ts-check
 'use strict';
 
-import { Form } from './views/form';
-import { Info } from './views/info';
-import { Loader } from './views/loader';
+import { Form } from './views/Form';
+import { Info } from './views/Info';
+import { Loader } from './views/Loader';
 
 const types = {
   FORM: 'view-form',
