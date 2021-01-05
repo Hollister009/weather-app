@@ -14,7 +14,7 @@
     "watch:scss": "node-sass ./src/scss/*.scss -o ./public/styles --watch"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "pug": "^2.0.4"
   },
