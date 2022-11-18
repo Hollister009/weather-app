@@ -23,7 +23,7 @@
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.12"
   },
   "repository": {
     "type": "git",
